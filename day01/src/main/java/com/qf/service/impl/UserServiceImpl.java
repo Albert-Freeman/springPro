@@ -29,5 +29,6 @@ public class UserServiceImpl implements UserService, InitializingBean {
 
     public void test(){
         System.out.println("test");
+        System.out.println("test by hot-fix branch");
     }
 }

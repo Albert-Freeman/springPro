@@ -26,4 +26,8 @@ public class UserServiceImpl implements UserService, InitializingBean {
     public void destroy(){
         System.out.println("destroy...");
     }
+
+    public void test(){
+        System.out.println("test");
+    }
 }

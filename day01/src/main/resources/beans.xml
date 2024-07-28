@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userService" class="com.qf.service.impl.UserServiceImpl" init-method="init" destroy-method="destroy">
+        <constructor-arg name="name" value="linda" />
+<!--        <property name="userDao" ref="userDao" />-->
+    </bean>
+
+    <bean id="userDao" class="com.qf.service.dao.impl.UserDaoImpl"></bean>
+
+<!--    通过静态方法实例化bean-->
+    <bean id="userDaoByStaticFactory" class="com.qf.service.factory.MyFactory" factory-method="getUserDao"></bean>
+
+<!--    通过带参数的静态工厂方法实例化bean-->
+    <bean id="userDaoByStaticWithArgs" class="com.qf.service.factory.MyFactory" factory-method="getUserDao3">
+        <constructor-arg name="name" value="linda" />
+        <constructor-arg name="age" value="16" />
+    </bean>
+<!--    通过实例工厂方法实例化bean-->
+    <bean id="myFactory" class="com.qf.service.factory.MyFactory"></bean>
+    <bean id="userDaoByInstanceFactory" factory-bean="myFactory" factory-method="getUserDao2"></bean>
+
+<!--    通过代餐实例工厂方法实例化bean-->
+    <bean id="userDaoByInstanceWithArgs" factory-bean="myFactory" factory-method="getUserDao4">
+        <constructor-arg name="id" value="123"/>
+    </bean>
+
+<!--    通过FactoryBean方法实例化bean-->
+    <bean id="userDao2" class="com.qf.service.factory.MyFactory2"></bean>
+
+<!--    注入结合数据类型-->
+    <bean id="userDao10" class="com.qf.service.dao.impl.UserDaoImpl">
+        <property name="users">
+            <list>
+                <value>linda</value>
+                <value>steve</value>
+                <value>albert</value>
+            </list>
+        </property>
+        <property name="allUser">
+            <list>
+                <ref bean="user1" />
+                <ref bean="user2" />
+                <ref bean="user3" />
+                <ref bean="user4" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="user1" class="com.qf.pojo.User" />
+    <bean id="user2" class="com.qf.pojo.User" />
+    <bean id="user3" class="com.qf.pojo.User" />
+    <bean id="user4" class="com.qf.pojo.User" />
+
+</beans>
